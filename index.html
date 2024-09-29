@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>جدول العمل</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.0.0-rc.5/dist/html2canvas.min.js" async></script>
+</head>
+<body>
+    <div id="employee-info" class="employee-info" style="display: none;">
+        <p id="employee-name"></p>
+        <p id="employee-start-date"></p>
+    </div>
+
+    <div id="all-notes-modal" style="display: none;">
+        <div id="all-notes-content">
+            <h3>جميع الملاحظات</h3>
+            <div id="notes-list">
+                <div class="note-header">
+                    <div class="note-title">اسم الشهر والسنة</div>
+                    <div class="note-start-date">تاريخ البدء</div>
+                    <div class="note-save-time">وقت الحفظ</div>
+                    <div class="note-creation-time">تاريخ إنشاء الملاحظة</div>
+                    <div class="note-text">النص</div>
+                </div>
+            </div>
+            <button id="close-notes">❌إغلاق</button>
+            <button id="change-bg-color">تغيير لون الخلفية</button>
+            <input type="color" id="color-picker">
+            <button id="delete-all-notes">حذف جميع الملاحظات</button>
+        </div>
+    </div>
+
+    <div class="shift-schedule">
+        <div id="current-date"></div>
+        <h2>جدول العمل</h2>
+        <button id="show-all-notes">📝✏️عرض جميع الملاحظات المحفوظة</button>
+        <button id="open-bg-settings">تغيير خلفيات الصفحة</button>
+        <div id="bg-settings-modal" class="modal">
+            <div class="modal-content">
+                <h3>إعدادات الخلفيات</h3>
+                <div class="settings-group">
+                    <h4>الصفحة الرئيسية</h4>
+                    <div class="color-picker-container">
+                        <label for="page-bg-color-picker">خلفية الصفحة:</label>
+                        <input type="color" id="page-bg-color-picker">
+                        <span class="color-preview" id="page-bg-preview"></span>
+                    </div>
+                </div>
+                <div class="settings-group">
+                    <h4>جداول العمل</h4>
+                    <div class="color-picker-container">
+                        <label for="shift-schedule-bg-color-picker">جدول العمل:</label>
+                        <input type="color" id="shift-schedule-bg-color-picker">
+                        <span class="color-preview" id="shift-schedule-bg-preview"></span>
+                    </div>
+                    <div class="color-picker-container">
+                        <label for="stats-table-bg-color-picker">جدول الإحصائيات:</label>
+                        <input type="color" id="stats-table-bg-color-picker">
+                        <span class="color-preview" id="stats-table-bg-preview"></span>
+                    </div>
+                    <div class="color-picker-container">
+                        <label for="work-calendar-bg-color-picker">تقويم العمل:</label>
+                        <input type="color" id="work-calendar-bg-color-picker">
+                        <span class="color-preview" id="work-calendar-bg-preview"></span>
+                    </div>
+                </div>
+                <div class="settings-group">
+                    <h4>الأشهر</h4>
+                    <div class="color-picker-container">
+                        <label for="month-bg-color-picker">خلفية الأشهر:</label>
+                        <input type="color" id="month-bg-color-picker">
+                        <span class="color-preview" id="month-bg-preview"></span>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button id="reset-colors">إعادة تعيين الافتراضي</button>
+                    <button id="close-bg-settings">إغلاق</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="schedule-items">
+            <div class="schedule-item">
+                <select class="day-type">
+                    <option value="work">أيام العمل</option>
+                    <option value="off">أيام العطلة</option>
+                </select>
+                <input type="number" class="days-count" value="1" min="1" max="99">
+                <input type="color" class="day-color" value="#68f296">
+                <span class="remove-item">X</span>
+            </div>
+            <div class="schedule-item">
+                <select class="day-type">
+                    <option value="work">أيام العمل</option>
+                    <option value="off" selected>أيام العطلة</option>
+                </select>
+                <input type="number" class="days-count" value="3" min="1" max="99">
+                <input type="color" class="day-color" value="#e1f7e9">
+                <span class="remove-item">X</span>
+            </div>
+        </div>
+        <button id="add-schedule-item">إضافة يوم عمل او عطلة</button>
+
+        <div class="calendar-control">
+            <label for="month-count">حدد عدد الأشهر:</label>
+            <select id="month-count">
+<option value="12" selected>12</option>
+<option value="1">1</option>
+<option value="2">2</option>
+<option value="3">3</option>
+<option value="4">4</option>
+<option value="5">5</option>
+<option value="6">6</option>
+<option value="7">7</option>
+<option value="8">8</option>
+<option value="9">9</option>
+<option value="10">10</option>
+<option value="11">11</option>
+<option value="12">12</option>
+<option value="13">13</option>
+<option value="14">14</option>
+<option value="15">15</option>
+<option value="16">16</option>
+<option value="17">17</option>
+<option value="18">18</option>
+<option value="19">19</option>
+<option value="20">20</option>
+<option value="21">21</option>
+<option value="22">22</option>
+<option value="23">23</option>
+<option value="24">24</option>
+<option value="25">25</option>
+<option value="26">26</option>
+<option value="27">27</option>
+<option value="28">28</option>
+<option value="29">29</option>
+<option value="30">30</option>
+<option value="31">31</option>
+<option value="32">32</option>
+<option value="33">33</option>
+<option value="34">34</option>
+<option value="35">35</option>
+<option value="36">36</option>
+            </select>
+            <label for="start-date">تاريخ اول يوم عمل:</label>
+            <input type="date" id="start-date">
+            <button id="generate-schedule">إنشاء الجدول</button>
+        </div>
+
+        <button id="toggle-stats">إخفاء/إظهار جدول الإحصائيات</button>
+        <button id="save-schedule">حفظ الصفحة كصورة</button>
+        <button id="reset-page">❌تهيئة الصفحة❌</button>
+        <table class="stats-table" id="stats-table">
+            <thead>
+                <tr>
+                    <th>الشهر</th>
+                    <th>السنة</th>
+                    <th>عدد أيام العمل</th>
+                    <th>عدد أيام العطلة</th>
+                    <th>الألوان المستخدمة لأيام العمل</th>
+                    <th>الألوان المستخدمة لأيام العطلة</th>
+                </tr>
+            </thead>
+            <tbody id="stats-body"></tbody>
+        </table>
+    </div>
+
+    <div class="work-calendar">
+        <h2>تقويم العمل</h2>
+        <div id="calendar"></div>
+        <footer>
+            ______________________________________________________
+            <p>سبحان الله بحمده سبحان الله العظيم</p>
+            <p>لا تنسى ذكر الله</p>
+            <p>Editor by Omar K H & OpenAi</p>
+            <a href="https://wa.me/96892670679" target="_blank">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" style="width: 40px; height: 40px; margin-top: 10px;">
+            </a>
+        </footer>
+    </div>
+
+    <!-- Modal for entering name -->
+    <div id="save-modal" class="modal">
+        <div class="modal-content">
+            <h3>إدخال اسم السجل</h3>
+            <input type="text" id="schedule-name" placeholder="أدخل اسم السجل">
+            <button id="save-schedule-confirm">حفظ</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
