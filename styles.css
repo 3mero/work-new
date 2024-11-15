@@ -215,20 +215,22 @@
             display: none;
             transform: translate(50%, -50%);
         }
-        @media (max-width: 1200px) {
-            #calendar {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-        @media (max-width: 768px) {
-            #calendar {
-                grid-template-columns: 1fr;
-            }
-            .day,
-            .day-header {
-                width: 100%;
-                height: auto;
-            }
+       @media (max-width: 1200px) {
+        #calendar {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+       @media (max-width: 768px) {
+        #calendar {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .day,
+    .day-header {
+        width: 100%;
+        height: auto;
+    }
+}
             .month-number {
                 font-size: 0.8em;
                 color: #2C2C2C;
